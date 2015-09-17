@@ -1,23 +1,67 @@
+List = new Mongo.Collection("list");
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+	angular.module("To-Do",['angular-meteor']);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
+	angular.module("To-Do").controller("MainController", function($scope, $meteor) {
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
-}
+		$scope.list = $meteor.collection(List);
+
+		$scope.newTask = "";
+
+		$scope.submit = function() {
+			if($scope.newTask) {
+				$scope.list.push({
+					task: $scope.newTask,
+					createdAt: new Date(),
+					isDone: false
+				});
+				$scope.newTask = "";
+			}
+		}
+
+		$scope.remove = function(object) {
+			$scope.list.splice($scope.list.indexOf(object), 1);
+		};
+
+		$scope.sort = {
+			name: "Ascending",
+			value: "-"
+		};
+		$scope.sortChange = function() {
+			if($scope.sort.value == "-") {
+				$scope.sort.name = "Descending";
+				$scope.sort.value = "+";
+			} else {
+				$scope.sort.name = "Ascending";
+				$scope.sort.value = "-";
+			}
+		}
+
+
+	});
+} 
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+	Meteor.startup(function() {
+		if (List.find().count() === 0) {
+			var list = [{
+				task: "this is my task1",
+				date: new Date(),
+				isDone: false
+			},{
+				task: "this is my task2",
+				date: new Date(),
+				isDone: false
+			},{
+				task: "this is my task3",
+				date: new Date(),
+				isDone: false
+			}];
+
+			for(var i = 0; i < list.length; i++) {
+				List.insert(list[i]);
+			};
+		}
+	});
 }

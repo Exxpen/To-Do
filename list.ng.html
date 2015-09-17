@@ -1,0 +1,33 @@
+<div ng-controller="MainController">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 well">
+			<form ng-submit="submit()" class="form-inline text-center">
+				<label class="control-label">New Items: </label>
+				<input type="text" ng-model="newTask" placeholder="Type Here!" class="form-control">
+				<input type="Submit" class="btn">
+				<button class="btn" ng-click="sortChange()">{{sort.name}}</button>
+			</form>
+
+			<div ng-repeat="object in list | orderBy:sort.value | filter: { isDone: false }">
+				<div class="checkbox animated fadeInDown">
+					<label>
+						<input type="checkbox" ng-model="object.isDone">{{object.task}}
+					</label>
+				</div>
+			</div>
+
+			<div ng-repeat="object in list | orderBy:sort.value | filter: { isDone: true }">
+				<div class="checkbox animated fadeInUp">
+					<label>
+						<input type="checkbox" ng-model="object.isDone">
+						<del>{{object.task}}</del>&nbsp;
+						<button type="button" class="close" aria-label="Close" ng-click="remove(object)">
+							<span aria-hidden="true">&nbsp;&nbsp;&times;</span>
+						</button>
+					</label>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
