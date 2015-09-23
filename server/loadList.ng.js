@@ -2,15 +2,15 @@ Meteor.startup(function() {
 	if (List.find().count() === 0) {
 		var list = [{
 			task: "The Server...",
-			date: new Date(),
+			createdAt: new Date(),
 			isDone: false
 		},{
 			task: "Has Just...",
-			date: new Date(),
+			createdAt: new Date(),
 			isDone: false
 		},{
 			task: "Started!",
-			date: new Date(),
+			createdAt: new Date(),
 			isDone: false
 		}];
 
