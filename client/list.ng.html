@@ -7,7 +7,6 @@
 				<input type="Submit" class="btn">
 				<button class="btn" ng-click="sortChange()">{{sort.name}}</button>
 			</form>
-
 			<div ng-repeat="object in list | orderBy:sort.value | filter: { isDone: false }">
 				<div class="checkbox animated fadeInDown">
 					<label>

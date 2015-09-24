@@ -19,3 +19,11 @@ Meteor.startup(function() {
 		};
 	}
 });
+
+Meteor.publish("list", function () {
+	return List.find({
+		$and:[
+		{owner: this.userId},
+		{owner: {$exists: true}}
+		]});
+});

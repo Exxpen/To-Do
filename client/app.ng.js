@@ -1,12 +1,13 @@
 angular.module("To-Do",['angular-meteor']);
 
-angular.module("To-Do").controller("MainController", function($scope, $meteor) {
+angular.module("To-Do").controller("MainController", function($scope, $meteor, $rootScope) {
 
-	$scope.list = $meteor.collection(List);
+	$scope.list = $meteor.collection(List).subscribe("list");
 
 	$scope.submit = function() {
 		if($scope.newTask) {
 			$scope.list.push({
+				owner: $rootScope.currentUser._id,
 				task: $scope.newTask,
 				createdAt: new Date(),
 				isDone: false
