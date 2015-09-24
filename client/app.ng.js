@@ -4,8 +4,6 @@ angular.module("To-Do").controller("MainController", function($scope, $meteor) {
 
 	$scope.list = $meteor.collection(List);
 
-	$scope.newTask = "";
-
 	$scope.submit = function() {
 		if($scope.newTask) {
 			$scope.list.push({
@@ -15,7 +13,7 @@ angular.module("To-Do").controller("MainController", function($scope, $meteor) {
 			});
 			$scope.newTask = "";
 		}
-	}
+	};
 
 	$scope.remove = function(object) {
 		$scope.list.splice($scope.list.indexOf(object), 1);
@@ -33,7 +31,7 @@ angular.module("To-Do").controller("MainController", function($scope, $meteor) {
 			$scope.sort.name = "Ascending";
 			$scope.sort.value = "-";
 		}
-	}
+	};
 
 
 });
